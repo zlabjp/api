@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestSuccesfullEncodeRequest(t *testing.T) {
+func TestSuccessfullEncodeRequest(t *testing.T) {
 	req := &CreateVolumeRequest{
 		RootUserId:  "root",
 		RootGroupId: "root",
@@ -47,7 +47,7 @@ func TestSuccesfullEncodeRequest(t *testing.T) {
 	}
 }
 
-func TestSuccesfullDecodeResponse(t *testing.T) {
+func TestSuccessfullDecodeResponse(t *testing.T) {
 	var byt json.RawMessage
 	byt, _ = json.Marshal(map[string]interface{}{"volume_uuid": "1234"})
 
@@ -72,7 +72,7 @@ func TestSuccesfullDecodeResponse(t *testing.T) {
 	}
 }
 
-func TestSuccesfullDecodeResponseWithErrorMessage(t *testing.T) {
+func TestSuccessfullDecodeResponseWithErrorMessage(t *testing.T) {
 	errorMessage := "ERROR_CODE_INVALID_REQUEST"
 	var byt json.RawMessage
 	byt, _ = json.Marshal(&rpcError{
@@ -91,7 +91,7 @@ func TestSuccesfullDecodeResponseWithErrorMessage(t *testing.T) {
 	var resp CreateVolumeResponse
 	err := decodeResponse(bytes.NewReader(res), &resp)
 	if err == nil {
-		t.Log("No error occured")
+		t.Log("No error occurred")
 		t.Fail()
 	}
 
@@ -119,7 +119,7 @@ func TestSuccesfullDecodeResponseWithErrorCode(t *testing.T) {
 	var resp CreateVolumeResponse
 	err := decodeResponse(bytes.NewReader(res), &resp)
 	if err == nil {
-		t.Log("No error occured")
+		t.Log("No error occurred")
 		t.Fail()
 	}
 
@@ -140,7 +140,7 @@ func TestBadDecodeResponse(t *testing.T) {
 	var resp CreateVolumeResponse
 	err := decodeResponse(bytes.NewReader(res), &resp)
 	if err == nil {
-		t.Log("No error occured")
+		t.Log("No error occurred")
 		t.Fail()
 	}
 
@@ -157,10 +157,10 @@ type decodeErrorCodeTest struct {
 
 func TestDecodeErrorCode(t *testing.T) {
 	tests := []*decodeErrorCodeTest{
-		&decodeErrorCodeTest{code: -32600, expected: "ERROR_CODE_INVALID_REQUEST"},
-		&decodeErrorCodeTest{code: -32603, expected: "ERROR_CODE_JSON_ENCODING_FAILED"},
-		&decodeErrorCodeTest{code: -32601, expected: "ERROR_CODE_METHOD_NOT_FOUND"},
-		&decodeErrorCodeTest{code: -32700, expected: "ERROR_CODE_PARSE_ERROR"},
+		{code: -32600, expected: "ERROR_CODE_INVALID_REQUEST"},
+		{code: -32603, expected: "ERROR_CODE_JSON_ENCODING_FAILED"},
+		{code: -32601, expected: "ERROR_CODE_METHOD_NOT_FOUND"},
+		{code: -32700, expected: "ERROR_CODE_PARSE_ERROR"},
 	}
 
 	_ = tests
